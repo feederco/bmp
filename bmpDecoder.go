@@ -207,6 +207,9 @@ func Decode(r io.Reader) (img image.Image, err error) {
 func DecodeConfig(r io.Reader) (config image.Config, err error) {
 
 	bf, err := ReadBMP(r) // not efficient but simple wins : read bitmap just to git header info
+	if err != nil {
+		return config, err
+	}
 
 	switch bf.Infoheader.Depth {
 	case 1, 2, 4, 8:
